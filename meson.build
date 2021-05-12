@@ -1356,6 +1356,7 @@ endif
 if cc.has_function('dladdr', dependencies : dep_dl)
   # This is really only required for megadrivers
   pre_args += '-DHAVE_DLADDR'
+  pre_args += '-DHAVE_DLFCN_H'
 endif
 
 if cc.has_function('dl_iterate_phdr')
