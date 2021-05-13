@@ -35,6 +35,8 @@
 
 #include <dxguids/dxguids.h>
 
+#include "cutils/log.h"
+
 bool
 d3d12_init_batch(struct d3d12_context *ctx, struct d3d12_batch *batch)
 {
@@ -156,6 +158,7 @@ d3d12_destroy_batch(struct d3d12_context *ctx, struct d3d12_batch *batch)
 void
 d3d12_start_batch(struct d3d12_context *ctx, struct d3d12_batch *batch)
 {
+   ALOGE("MESA - gallium - d3d12_start_batch - start");
    struct d3d12_screen *screen = d3d12_screen(ctx->base.screen);
    ID3D12DescriptorHeap* heaps[2] = { d3d12_descriptor_heap_get(batch->view_heap),
                                       d3d12_descriptor_heap_get(batch->sampler_heap) };
@@ -186,11 +189,13 @@ d3d12_start_batch(struct d3d12_context *ctx, struct d3d12_batch *batch)
 
    if (!ctx->queries_disabled)
       d3d12_resume_queries(ctx);
+   ALOGE("MESA - gallium - d3d12_start_batch - stop");
 }
 
 void
 d3d12_end_batch(struct d3d12_context *ctx, struct d3d12_batch *batch)
 {
+   ALOGE("MESA - gallium - d3d12_end_batch - start");
    struct d3d12_screen *screen = d3d12_screen(ctx->base.screen);
 
    if (!ctx->queries_disabled)
@@ -205,6 +210,7 @@ d3d12_end_batch(struct d3d12_context *ctx, struct d3d12_batch *batch)
    ID3D12CommandList* cmdlists[] = { ctx->cmdlist };
    screen->cmdqueue->ExecuteCommandLists(1, cmdlists);
    batch->fence = d3d12_create_fence(screen, ctx);
+   ALOGE("MESA - gallium - d3d12_end_batch - stop");
 }
 
 bool

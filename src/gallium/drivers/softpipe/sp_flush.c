@@ -42,12 +42,14 @@
 #include "util/u_memory.h"
 #include "util/u_string.h"
 
+#include "cutils/log.h"
 
 void
 softpipe_flush( struct pipe_context *pipe,
                 unsigned flags,
                 struct pipe_fence_handle **fence )
 {
+   ALOGE("MESA - gallium - softpipe_flush - start");
    struct softpipe_context *softpipe = softpipe_context(pipe);
    uint i;
 
@@ -92,6 +94,7 @@ softpipe_flush( struct pipe_context *pipe,
 
    if (fence)
       *fence = (void*)(intptr_t)1;
+   ALOGE("MESA - gallium - softpipe_flush - start");
 }
 
 void

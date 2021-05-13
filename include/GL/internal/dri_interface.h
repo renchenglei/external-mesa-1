@@ -90,6 +90,8 @@ typedef struct __DRI2bufferDamageExtensionRec   __DRI2bufferDamageExtension;
 typedef struct __DRIimageLoaderExtensionRec     __DRIimageLoaderExtension;
 typedef struct __DRIimageDriverExtensionRec     __DRIimageDriverExtension;
 
+typedef struct __DRIimageRec          __DRIimage;
+
 /*@}*/
 
 
@@ -1001,7 +1003,7 @@ struct __DRIlegacyExtensionRec {
  * conjunction with the core extension.
  */
 #define __DRI_SWRAST "DRI_SWRast"
-#define __DRI_SWRAST_VERSION 4
+#define __DRI_SWRAST_VERSION 5
 
 struct __DRIswrastExtensionRec {
     __DRIextension base;
@@ -1048,6 +1050,16 @@ struct __DRIswrastExtensionRec {
                                     const __DRIextension **driver_extensions,
                                     const __DRIconfig ***driver_configs,
                                     void *loaderPrivate);
+
+/**
+    * create a dri image from native window system handle
+    *
+    * \since version 5
+    */
+   __DRIimage *(*createImageFromWinsys)(__DRIscreen *_screen,
+                                        int width, int height, int format,
+                                        int num_handles, struct winsys_handle *whandle,
+                                        void *loaderPrivate);
 
 };
 
@@ -1508,7 +1520,6 @@ enum __DRIChromaSiting {
 /* Available in version 16 */
 #define __DRI_IMAGE_FORMAT_MODIFIER_ATTRIB_PLANE_COUNT   0x0001
 
-typedef struct __DRIimageRec          __DRIimage;
 typedef struct __DRIimageExtensionRec __DRIimageExtension;
 struct __DRIimageExtensionRec {
     __DRIextension base;

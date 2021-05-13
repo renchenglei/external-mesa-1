@@ -125,6 +125,7 @@ if with_dri2
   if with_platform_android
     deps_for_egl += dep_android
     files_egl += files('drivers/dri2/platform_android.c')
+    incs_for_egl += include_directories('../../src/gallium/include')
   endif
 elif with_platform_haiku
   incs_for_egl += inc_haikugl

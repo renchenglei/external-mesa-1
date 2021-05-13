@@ -31,6 +31,8 @@
 #include <directx/dxcore.h>
 #include <dxguids/dxguids.h>
 
+#include "cutils/log.h"
+
 static IDXCoreAdapterFactory *
 get_dxcore_factory()
 {
@@ -40,12 +42,14 @@ get_dxcore_factory()
    util_dl_library *dxcore_mod = util_dl_open(UTIL_DL_PREFIX "dxcore" UTIL_DL_EXT);
    if (!dxcore_mod) {
       debug_printf("D3D12: failed to load DXCore.DLL\n");
+      ALOGE("MESA - gallium - get_dxcore_factory - failed to load DXCore.DLL\n");
       return NULL;
    }
 
    DXCoreCreateAdapterFactory = (PFN_CREATE_DXCORE_ADAPTER_FACTORY)util_dl_get_proc_address(dxcore_mod, "DXCoreCreateAdapterFactory");
    if (!DXCoreCreateAdapterFactory) {
       debug_printf("D3D12: failed to load DXCoreCreateAdapterFactory from DXCore.DLL\n");
+      ALOGE("MESA - gallium - get_dxcore_factory - failed to load DXCoreCreateAdapterFactory from DXCore.DLL\n");
       return NULL;
    }
 
@@ -53,6 +57,7 @@ get_dxcore_factory()
    HRESULT hr = DXCoreCreateAdapterFactory(IID_IDXCoreAdapterFactory, (void **)&factory);
    if (FAILED(hr)) {
       debug_printf("D3D12: DXCoreCreateAdapterFactory failed: %08x\n", hr);
+      ALOGE("MESA - gallium - get_dxcore_factory - DXCoreCreateAdapterFactory failed: %08x\n", hr);
       return NULL;
    }
 
@@ -100,6 +105,7 @@ d3d12_create_dxcore_screen(struct sw_winsys *winsys, LUID *adapter_luid)
 
    screen->factory = get_dxcore_factory();
    if (!screen->factory) {
+      ALOGE("MESA - gallium - d3d12_create_dxcore_screen - failed to get dxcore factory");
       FREE(screen);
       return nullptr;
    }

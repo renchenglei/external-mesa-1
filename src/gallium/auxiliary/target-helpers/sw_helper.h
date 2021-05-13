@@ -6,6 +6,7 @@
 #include "util/u_debug.h"
 #include "target-helpers/sw_helper_public.h"
 #include "frontend/sw_winsys.h"
+#include "cutils/log.h"
 
 
 /* Helper function to choose and instantiate one of the software rasterizers:
@@ -102,6 +103,7 @@ sw_screen_create(struct sw_winsys *winsys)
    };
 
    for (unsigned i = 0; i < ARRAY_SIZE(drivers); i++) {
+      ALOGE("MESA - gallium - sw_helper - sw_screen_create - drivers:%s - i:%d", drivers[i], i);
       struct pipe_screen *screen = sw_screen_create_named(winsys, drivers[i]);
       if (screen)
          return screen;

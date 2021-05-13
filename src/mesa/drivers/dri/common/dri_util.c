@@ -838,7 +838,7 @@ const __DRIdri2Extension driDRI2Extension = {
 };
 
 const __DRIswrastExtension driSWRastExtension = {
-    .base = { __DRI_SWRAST, 4 },
+    .base = { __DRI_SWRAST, __DRI_SWRAST_VERSION },
 
     .createNewScreen            = driSWRastCreateNewScreen,
     .createNewDrawable          = driCreateNewDrawable,

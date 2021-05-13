@@ -48,6 +48,8 @@
 
 #include <dxguids/dxguids.h>
 
+#include "cutils/log.h"
+
 extern "C" {
 #include "indices/u_primconvert.h"
 }
@@ -1492,6 +1494,7 @@ d3d12_disable_fake_so_buffers(struct d3d12_context *ctx)
 void
 d3d12_flush_cmdlist(struct d3d12_context *ctx)
 {
+   ALOGE("MESA - gallium - d3d12_flush_cmdlist - start");
    d3d12_end_batch(ctx, d3d12_current_batch(ctx));
 
    ctx->current_batch_idx++;
@@ -1499,6 +1502,7 @@ d3d12_flush_cmdlist(struct d3d12_context *ctx)
       ctx->current_batch_idx = 0;
 
    d3d12_start_batch(ctx, d3d12_current_batch(ctx));
+   ALOGE("MESA - gallium - d3d12_flush_cmdlist - stop");
 }
 
 void

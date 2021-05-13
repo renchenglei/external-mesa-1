@@ -38,7 +38,8 @@ endif
 
 loader_c_args = [
   '-DUSE_DRICONF',
-  '-DDEFAULT_DRIVER_DIR="@0@"'.format(dri_search_path),
+  #'-DDEFAULT_DRIVER_DIR="@0@"'.format(dri_search_path),
+  '-DDEFAULT_DRIVER_DIR="/data/app/~~zzJFPjPPrRy77rP8-JZDrA==/com.intel.celadon.gfxdriver.swiftshader-OsvOCbOnRqc4_JlgN-wJvw==/lib/x86_64"',
 ]
 
 if with_gallium_iris and get_option('prefer-iris')

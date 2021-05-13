@@ -7,6 +7,8 @@
 #include "frontend/sw_winsys.h"
 #include "target-helpers/inline_debug_helper.h"
 
+#include "cutils/log.h"
+
 #ifdef GALLIUM_SWR
 #include "swr/swr_public.h"
 #endif
@@ -97,6 +99,7 @@ sw_screen_create(struct sw_winsys *winsys)
    };
 
    for (unsigned i = 0; i < ARRAY_SIZE(drivers); i++) {
+      ALOGE("MESA - gallium - inline_sw_helper - sw_screen_create - drivers:%s - i:%d", drivers[i], i);
       struct pipe_screen *screen = sw_screen_create_named(winsys, drivers[i]);
       if (screen)
          return screen;
